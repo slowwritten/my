@@ -61,6 +61,23 @@ img {
   width: 100%;
   margin-top: 10px;
   border-radius: 8px;
+
+  .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#searchToggle {
+  background: none;
+  font-size: 18px;
+}
+
+#searchInput {
+  margin-top: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
 }
 </style>
 </head>
@@ -68,7 +85,13 @@ img {
 <body>
 
 <main>
-<h1>📓 My Journal</h1>
+<div class="header">
+  <h1>📓 My Journal</h1>
+  <button id="searchToggle">🔍</button>
+</div>
+
+<input id="searchInput" placeholder="검색..." style="display:none;">
+``
 
 <input id="title" placeholder="제목">
 <textarea id="content" placeholder="내용"></textarea>
@@ -87,6 +110,29 @@ const list = document.getElementById("list");
 const titleInput = document.getElementById("title");
 const contentInput = document.getElementById("content");
 const imageInput = document.getElementById("imageInput");
+
+  const searchToggle = document.getElementById("searchToggle");
+const searchInput = document.getElementById("searchInput");
+
+// 🔍 클릭하면 검색창 보이기
+searchToggle.onclick = function () {
+  if (searchInput.style.display === "none") {
+    searchInput.style.display = "block";
+    searchInput.focus();
+  } else {
+    searchInput.style.display = "none";
+  }
+};
+
+// 🔍 입력하면 검색
+searchInput.oninput = function () {
+  const keyword = this.value.toLowerCase();
+
+  document.querySelectorAll(".entry").forEach(entry => {
+    entry.style.display =
+      entry.innerText.toLowerCase().includes(keyword) ? "block" : "none";
+  });
+};
 
 // ✅ 저장 버튼
 document.getElementById("saveBtn").onclick = function () {
