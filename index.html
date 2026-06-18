@@ -126,14 +126,31 @@ function addEntry(title, content, image) {
     <strong>${title}</strong>
     <p>${content}</p>
     ${image ? `<img src="${image}">` : ""}
-    <div class="date">${new Date().toLocaleDateString()}</div>
+    <div class="date">${new Date().toLocaleString()}</div>
+
+    <button class="edit">수정</button>
     <button class="delete">삭제</button>
   `;
 
-  // 삭제 기능
+  // ✅ 삭제 기능
   entry.querySelector(".delete").onclick = function () {
     entry.remove();
     saveData();
+  };
+
+  // ✅ 수정 기능 (핵심🔥)
+  entry.querySelector(".edit").onclick = function () {
+
+    const newTitle = prompt("제목 수정", title);
+    const newContent = prompt("내용 수정", content);
+
+    if (newTitle && newContent) {
+      entry.querySelector("strong").innerText = newTitle;
+      entry.querySelector("p").innerText = newContent;
+
+      saveData();
+    }
+
   };
 
   list.prepend(entry);
