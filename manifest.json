@@ -1,7 +1,7 @@
 {
-  "name": "My Journal",
-  "short_name": "Journal",
-  "start_url": "index.html",
+  "name": "slowwritten",
+  "short_name": "slowwritten",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
