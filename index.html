@@ -39,9 +39,14 @@ input, textarea {
 textarea {
   height: 80px;
 }
-<input type="file" id="imageInput" accept="image/*">
+<textarea id="content" placeholder="내용"></textarea>
+
+<input type="file" id="imageInput" accept="image/*"> ✅
+
+<button id="saveBtn">저장</button>
 
   
+
 button {
   margin-top: 10px;
   background: #eee;
@@ -50,6 +55,8 @@ button {
   cursor: pointer;
   border-radius: 6px;
   font-size: 16px;
+} ✅ 닫기
+
 
 .entry {
   border-top: 1px solid #eee;
@@ -84,8 +91,8 @@ button {
 <main>
 <h1>📓 My Journal</h1>
 
-<input id="title" placeholder="제목">
 <textarea id="content" placeholder="내용"></textarea>
+<input id="title" placeholder="제목">
 <button id="saveBtn">저장</button>
 
 <div id="list"></div>
@@ -140,12 +147,11 @@ document.getElementById("saveBtn").onclick = function () {
 };
 
 // 엔트리 생성
-function createEntry(title, content, image) {
 
-  const entry = document.createElement("div");
-  entry.className = "entry";
+entry.innerHTML = `
+  <div class="actions">
+  ...
 
-  entry.innerHTML = `
     <strong>${title}</strong>
     <p>${content}</p>
     ${image ? `<img src="${image}" style="width:100%; margin-top:10px;">` : ""}
