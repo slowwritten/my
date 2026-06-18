@@ -96,7 +96,7 @@ img {
 <main>
 
 <div class="header">
-  <h1>📓 My Journal</h1>
+  <h1 id="reloadBtn" style="cursor:pointer;">📓 My Journal</h1>
   <button id="searchToggle">🔍</button>
 </div>
 
@@ -243,6 +243,12 @@ function loadData() {
       }
     };
   });
+
+document.getElementById("reloadBtn").onclick = function() {
+  location.reload();
+};
+``
+  
 }
 
 loadData();
