@@ -39,7 +39,9 @@ input, textarea {
 textarea {
   height: 80px;
 }
+<input type="file" id="imageInput" accept="image/*">
 
+  
 button {
   margin-top: 10px;
   background: #eee;
@@ -95,6 +97,8 @@ button {
 </main>
 
 <script>
+const imageInput = document.getElementById("imageInput");
+``
 const list = document.getElementById("list");
 const titleInput = document.getElementById("title");
 const contentInput = document.getElementById("content");
@@ -108,25 +112,48 @@ document.getElementById("saveBtn").onclick = function () {
 
   const title = titleInput.value;
   const content = contentInput.value;
-  const tags = tagInput.value;
+  const file = imageInput.files[0];
 
   if (!title || !content) {
     alert("내용 입력하세요");
     return;
   }
 
-  createEntry(title, content, tags, new Date().toLocaleDateString());
-  saveData();
+  if (file) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      createEntry(title, content, e.target.result);
+      saveData();
+    };
+
+    reader.readAsDataURL(file);
+
+  } else {
+    createEntry(title, content, null);
+    saveData();
+  }
 
   titleInput.value = "";
   contentInput.value = "";
-  tagInput.value = "";
+  imageInput.value = "";
 };
 
 // 엔트리 생성
-function createEntry(title, content, tags, date) {
+function createEntry(title, content, image) {
+
   const entry = document.createElement("div");
   entry.className = "entry";
+
+  entry.innerHTML = `
+    <strong>${title}</strong>
+    <p>${content}</p>
+    ${image ? `<img src="${image}" style="width:100%; margin-top:10px;">` : ""}
+    <div class="date">${new Date().toLocaleDateString()}</div>
+  `;
+
+  list.prepend(entry);
+}
 
   entry.innerHTML = `
     <div class="actions">
